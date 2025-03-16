@@ -26,9 +26,9 @@ canvas{
 }
 #screen_one{
 	background-color: #bbb;
-	background-image: url(intro.png);
+	/* background-image: url(grey.avif); */
 	background-repeat: no-repeat;
-	background-position: 50% 50%;
+	//background-position: 50% 50%;
 }
 #screen_two{
 	background:#333;
