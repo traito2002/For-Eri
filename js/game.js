@@ -1697,27 +1697,29 @@ const animationTimeline = () => {
   };
   
   // Run fetch and animation in sequence
-  const resolveFetch = () => {
-	return new Promise((resolve, reject) => {
-		fetchData()
-		.then(() => resolve("Fetch done!"))
-		.catch((error) => reject(error));
-	});
-  };
-  
-  const waitForStageToBeThree = () => {
-	const interval = setInterval(() => {
-		// Check if STAGE is 3
-		if (STAGE === 4) {
-			clearInterval(interval); // Stop checking once we get the desired stage
-			animationTimeline(); // Run the animation
-		}
-	}, 100); // Check every 100ms
+  const resolveFetch = async () => {
+	await fetchData(); // Chờ fetchData() hoàn tất
+	return "Fetch done!";
 };
 
-// Run fetch first, then wait for STAGE to be 3
-resolveFetch().then(() => {
+const waitForStageToBeThree = () => {
+	const interval = setInterval(() => {
+		console.log("Checking STAGE:", STAGE); // Debug để xem STAGE thay đổi chưa
+
+		if (STAGE === 4) {
+			clearInterval(interval); // Dừng kiểm tra
+			animationTimeline(); // Chạy animation
+		}
+	}, 100); // Kiểm tra mỗi 100ms
+};
+
+// Chạy fetch trước, đợi xong rồi mới check STAGE
+const runProcess = async () => {
+	await resolveFetch();
+	console.log("Fetch hoàn tất, bắt đầu kiểm tra STAGE...");
 	waitForStageToBeThree();
-});
+};
+
+runProcess();
   
 
