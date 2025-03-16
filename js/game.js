@@ -1699,8 +1699,9 @@ const animationTimeline = () => {
   // Run fetch and animation in sequence
   const resolveFetch = () => {
 	return new Promise((resolve, reject) => {
-	  fetchData();
-	  resolve("Fetch done!");
+		fetchData()
+		.then(() => resolve("Fetch done!"))
+		.catch((error) => reject(error));
 	});
   };
   
